@@ -1,0 +1,10 @@
+name: siren
+version: 1.0.0
+author: Zdenko Vrabel <vrabel.zdenko@gmail.com>
+description: This is small lightweight framework for your own Polymer-less and shadow dom-less web components based on 'registerElement' (which is polifilled now).
+homepage: http://github.com/urbantower/dart-siren
+environment:
+  sdk: '>=1.7.0'
+dependencies:
+  browser: '>=0.10.0 <0.11.0'
+  logging: ">=0.9.2 <0.10.0"
