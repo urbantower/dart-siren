@@ -15,7 +15,7 @@ import 'package:siren/siren.dart';
 import 'package:logging/logging.dart';
 import 'dart:html';
 
-@WebComponent("custom-foo")
+@WebComponent("custom-foo", initMethod: "init")
 class FooElement extends HtmlElement {
   
   /**
@@ -23,8 +23,13 @@ class FooElement extends HtmlElement {
    */
   FooElement.created() : super.created();
   
+  @override
   void attached() {
     this.appendHtml("<div>web component FOO</div>");
+  }
+  
+  static void init() {
+    print("registration of custom-foo");
   }
 }
 

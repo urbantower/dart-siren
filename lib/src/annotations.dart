@@ -21,8 +21,11 @@ class WebComponent {
   /// a tag name the component will be available
   final String tag;
   
+  /// name of static initialization method
+  final String initMethod;
+  
   /**
    * constructor
    */
-  const WebComponent([this.tag]);
+  const WebComponent(this.tag, {this.initMethod: ""});
 }

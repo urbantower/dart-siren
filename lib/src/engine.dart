@@ -43,7 +43,7 @@ class SirenEngine {
     var mirrorSystem = currentMirrorSystem();
     for (var library in mirrorSystem.libraries.values) {
       String libraryName = library.qualifiedName.toString().substring("Symbol(\"".length);
-      if(_libraryIsNotExcluded(libraryName)) {
+      if(_libraryIsNotExcluded(libraryName)) {        
         //go through classes
         for (var declaration in library.declarations.values) {
           if (declaration is ClassMirror) {
@@ -62,10 +62,22 @@ class SirenEngine {
    * method scan the class
    */
   void _registerClass(ClassMirror classMirror) {
-    var descriptor = _getWebComponentMetadata(classMirror);
-    if (descriptor != null) {
-      _log.fine("registering <${descriptor.tag}> as ${classMirror.qualifiedName}");
-      document.registerElement(descriptor.tag, classMirror.reflectedType);
+    var webComponentDescriptor = _getWebComponentMetadata(classMirror);
+    if (webComponentDescriptor != null) {               
+      _beforeRegistration(classMirror, webComponentDescriptor);
+      document.registerElement(webComponentDescriptor.tag, classMirror.reflectedType);
+      _log.fine("registered <${webComponentDescriptor.tag}> as ${classMirror.qualifiedName}");
+    }
+  }
+  
+  
+  /**
+   * method call static method marked as initialization
+   * method in WebComponent descriptor
+   */
+  _beforeRegistration(ClassMirror classMirror, WebComponent descriptor) {
+    if (descriptor.initMethod.isNotEmpty) {
+      classMirror.invoke(new Symbol(descriptor.initMethod), []);
     }
   }
   
