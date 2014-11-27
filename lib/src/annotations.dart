@@ -24,8 +24,40 @@ class WebComponent {
   /// name of static initialization method
   final String initMethod;
   
+  /// ID of template
+  final String template;
+  
   /**
    * constructor
    */
-  const WebComponent(this.tag, {this.initMethod: ""});
+  const WebComponent(this.tag, {this.initMethod: "", this.template: ""});
+  
+  
+  /**
+   * method look for annotation in class mirror
+   */
+  static WebComponent findAnnotation(ClassMirror mirror) {
+    for (var m in mirror.metadata) {
+      if (m.reflectee is WebComponent) {
+        return m.reflectee;
+      }
+    }
+    return null;
+  }
+  
+  /**
+   * metho look for annotation in instance
+   */
+  static WebComponent findAnnotationInInstance(Object instance) {
+    return findAnnotation(reflect(instance).type);
+  }
+  
+  /**
+   * method look for annotation in class
+   */
+  static WebComponent findAnnotationInClass(Type clazz) {
+    return findAnnotation(reflectClass(clazz));
+  }
+
 }
+

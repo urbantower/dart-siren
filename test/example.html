@@ -7,9 +7,13 @@
       all browsers are supporting registerElement 
     -->    
     <script src="//cdnjs.cloudflare.com/ajax/libs/document-register-element/0.1.2/document-register-element.js"></script>
+    <template id="custom-template">
+      <h1>This is template</h1>
+    </template>
   </head> 
   <body>   
-    <custom-foo></custom-foo>    
+    <custom-foo></custom-foo>
+    <custom-template></custom-template>    
     <script type="application/dart" src="example.dart"></script>
     <script src="packages/browser/dart.js"></script>
   </body>

@@ -15,6 +15,19 @@ import 'package:siren/siren.dart';
 import 'package:logging/logging.dart';
 import 'dart:html';
 
+@WebComponent("custom-template", template: "custom-template")
+class CustomTemplateElement extends TemplateComponent {
+  
+  CustomTemplateElement.created() : super.created();  
+  
+  @override
+  void attached() {
+    super.attached();
+    print("custom-template created");
+  }
+  
+}
+
 @WebComponent("custom-foo", initMethod: "init")
 class FooElement extends HtmlElement {
   
