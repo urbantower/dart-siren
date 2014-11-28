@@ -56,7 +56,4 @@ void main() {
   
   //initialize siren
   initSiren();
-  
-  var elm = new Element.tag("custom-foo");
-  print("${elm}");
 }
