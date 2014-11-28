@@ -27,8 +27,8 @@ class TemplateComponent extends HtmlElement {
   @override
   attached() {
     var webComponentDescriptor = WebComponent.findAnnotationInInstance(this);    
-    TemplateElement template = templates.templateFor(webComponentDescriptor.template);
-    this.append(template.content.clone(true));
+    Element template = templates.templateFor(webComponentDescriptor.template);
+    this.appendHtml(template.innerHtml);
   }
   
 }
@@ -61,7 +61,7 @@ class TemplateRegister {
   }
   
   
-  TemplateElement templateFor(String id) {
+  Element templateFor(String id) {
     var template = _templates[id];
     if (template == null) {
       //get template
