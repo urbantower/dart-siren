@@ -15,7 +15,7 @@ import 'package:siren/siren.dart';
 import 'package:logging/logging.dart';
 import 'dart:html';
 
-@WebComponent("custom-template", template: "custom-template")
+@WebComponent("custom-template", template: "custom-template", dependsOn: const [".FooElement"])
 class CustomTemplateElement extends TemplateComponent {
   
   CustomTemplateElement.created() : super.created();  

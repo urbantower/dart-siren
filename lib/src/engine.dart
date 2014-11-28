@@ -27,6 +27,9 @@ class SirenEngine {
   List<String> excludedClasses = new List();
 
   
+  List<ClassMirror> _toBeRegistered;
+  List<ClassMirror> _alreadyRegistered;
+  
   /**
    * Constructor
    */
@@ -40,6 +43,8 @@ class SirenEngine {
    */
   void scan() {
     //go trhough libraries
+    _toBeRegistered = new List();
+    _alreadyRegistered = new List();
     var mirrorSystem = currentMirrorSystem();
     for (var library in mirrorSystem.libraries.values) {
       String libraryName = library.qualifiedName.toString().substring("Symbol(\"".length);
@@ -49,11 +54,16 @@ class SirenEngine {
           if (declaration is ClassMirror) {
             String className = declaration.qualifiedName.toString().substring("Symbol(\"".length);
             if (_classIsNotExcluded(className)) {
-              _registerClass(declaration);
+              _toBeRegistered.add(declaration);
             }
           }
         }
       }      
+    }
+    
+    //register the components
+    for (var component in _toBeRegistered) {
+      _registerClass(component);
     }    
   }
   
@@ -62,12 +72,33 @@ class SirenEngine {
    * method scan the class
    */
   void _registerClass(ClassMirror classMirror) {
-    var webComponentDescriptor = _getWebComponentMetadata(classMirror);
-    if (webComponentDescriptor != null) {               
-      _beforeRegistration(classMirror, webComponentDescriptor);
-      document.registerElement(webComponentDescriptor.tag, classMirror.reflectedType);
-      _log.fine("registered <${webComponentDescriptor.tag}> as ${classMirror.qualifiedName}");
+    //is it already registered?
+    if(this._alreadyRegistered.contains(classMirror)) {
+      return;
     }
+    
+    //get the descriptor
+    var webComponentDescriptor = _getWebComponentMetadata(classMirror);
+    if (webComponentDescriptor == null) {
+       return;
+    }
+    
+    //check dependencies
+    if (webComponentDescriptor.dependsOn != null) {
+      for (var dependency in webComponentDescriptor.dependsOn) {
+        var dependencySymbol = new Symbol(dependency); 
+        var dependencyClass = _toBeRegistered.firstWhere((c) => c.qualifiedName == dependencySymbol, orElse:null);
+        if (dependencyClass != null) {
+          _registerClass(dependencyClass);  
+        }
+      }
+    }
+      
+    //registering element
+    _beforeRegistration(classMirror, webComponentDescriptor);
+    document.registerElement(webComponentDescriptor.tag, classMirror.reflectedType);
+    _log.fine("registered <${webComponentDescriptor.tag}> as ${classMirror.qualifiedName}");
+    _alreadyRegistered.add(classMirror);        
   }
   
   

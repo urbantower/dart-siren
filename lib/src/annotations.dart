@@ -27,10 +27,13 @@ class WebComponent {
   /// ID of template
   final String template;
   
+  /// depends on
+  final List<String> dependsOn;  
+  
   /**
    * constructor
    */
-  const WebComponent(this.tag, {this.initMethod: "", this.template: ""});
+  const WebComponent(this.tag, {this.initMethod: "", this.template: "", this.dependsOn: null});
   
   
   /**
