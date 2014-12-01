@@ -14,8 +14,9 @@
 import 'package:siren/siren.dart';
 import 'package:logging/logging.dart';
 import 'dart:html';
+import 'dart:async';
 
-@WebComponent("custom-template", template: "custom-template", dependsOn: const [".FooElement"])
+@WebComponent("custom-template", template: "custom-template", dependsOn: const[ FooElement ])
 class CustomTemplateElement extends TemplateComponent {
   
   CustomTemplateElement.created() : super.created();  
@@ -23,21 +24,24 @@ class CustomTemplateElement extends TemplateComponent {
   @override
   void attached() {
     super.attached();
-    print("custom-template created");
+    print("attached custom-template");
   }
   
 }
 
 @WebComponent("custom-foo", initMethod: "init")
 class FooElement extends HtmlElement {
-  String testAttr;
+  String testAttr = "test";
+  
   /**
    * constructor
    */
-  FooElement.created() : super.created();
+  FooElement.created() : super.created() {
+  }
   
   @override
   void attached() {
+    print("attached custom-foo");
     this.appendHtml("<div>web component FOO</div>");
   }
   
@@ -48,12 +52,24 @@ class FooElement extends HtmlElement {
 
 
 void main() {
-  //enable logging
-  Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((LogRecord rec) {
-    print('${rec.level.name}: ${rec.time}: ${rec.message}');
-  });
+  try {
+    //enable logging
+    Logger.root.level = Level.ALL;
+    Logger.root.onRecord.listen((LogRecord rec) {
+      print('${rec.level.name}: ${rec.time}: ${rec.message}');
+    });
+    
+    //initialize siren
+    initSiren();
+   
+    var timeout = new Duration(seconds: 1);
+    new Timer(timeout, (){
+      var x = (document.body.querySelector("#custom") as FooElement);
+      print("${x.testAttr}");      
+    });
+    
+  } catch (e) {
+    print("${e}");
+  }
   
-  //initialize siren
-  initSiren();
 }

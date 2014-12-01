@@ -28,7 +28,7 @@ class WebComponent {
   final String template;
   
   /// depends on
-  final List<String> dependsOn;  
+  final List<Type> dependsOn;  
   
   /**
    * constructor

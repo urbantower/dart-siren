@@ -26,14 +26,17 @@ part 'src/template.dart';
  * as custom elements
  */
 initSiren({Iterable<String> excludedLibraries, Iterable<String> excludedClasses}) {
-  var engine = new SirenEngine();  
+  _siren = new SirenEngine();  
   
   if (excludedLibraries != null) {
-    engine.excludedLibraries.addAll(excludedLibraries);
+    _siren.excludedLibraries.addAll(excludedLibraries);
   }    
   if (excludedClasses != null) {
-    engine.excludedClasses.addAll(excludedClasses);
+    _siren.excludedClasses.addAll(excludedClasses);
   }
   
-  engine.scan();  
+  _siren.scan();  
 }
+
+SirenEngine _siren; 
+SirenEngine get siren => _siren;

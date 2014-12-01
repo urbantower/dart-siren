@@ -64,7 +64,7 @@ class SirenEngine {
     //register the components
     for (var component in _toBeRegistered) {
       _registerClass(component);
-    }    
+    }
   }
   
   
@@ -85,9 +85,11 @@ class SirenEngine {
     
     //check dependencies
     if (webComponentDescriptor.dependsOn != null) {
-      for (var dependency in webComponentDescriptor.dependsOn) {
-        var dependencySymbol = new Symbol(dependency); 
-        var dependencyClass = _toBeRegistered.firstWhere((c) => c.qualifiedName == dependencySymbol, orElse:null);
+      for (Type dependency in webComponentDescriptor.dependsOn) {
+        Symbol dependencySymbol = reflectType(dependency).qualifiedName;        
+        var dependencyClass = _toBeRegistered.firstWhere((c) {
+          return c.qualifiedName == dependencySymbol;
+        }, orElse:null);
         if (dependencyClass != null) {
           _registerClass(dependencyClass);  
         }
