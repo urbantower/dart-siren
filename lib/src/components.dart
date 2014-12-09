@@ -30,6 +30,10 @@ abstract class SirenComponent extends HtmlElement with DomManipulationMixin, Eve
     ready();
   }
   
+  /**
+   * Here you will implement your initialization 
+   * code.
+   */
   void ready();
 }
 

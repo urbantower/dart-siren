@@ -37,10 +37,11 @@ class CustomTemplateElement extends TemplateComponent {
   
   @Listener(EventType.ON_KEYPRESS, id: "text-field")
   void onClickTextField(Event e) {
-    print("key down");
+    print("key press");
   }
   
 }
+
 
 @WebComponent("custom-foo", initMethod: "init")
 class FooElement extends HtmlElement {
