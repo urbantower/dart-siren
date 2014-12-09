@@ -19,7 +19,11 @@ import 'package:logging/logging.dart';
 
 part 'src/annotations.dart';
 part 'src/engine.dart';
+part 'src/mixins.dart';
+part 'src/events.dart';
 part 'src/template.dart';
+part 'src/components.dart';
+
 
 /**
  * initialize siren framework, register all annotated classes 

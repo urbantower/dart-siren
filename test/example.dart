@@ -19,12 +19,21 @@ import 'dart:async';
 @WebComponent("custom-template", template: "custom-template", dependsOn: const[ FooElement ])
 class CustomTemplateElement extends TemplateComponent {
   
-  CustomTemplateElement.created() : super.created();  
+  CustomTemplateElement.created() : super.created();
+  
+  FooElement get customFoo => $("custom"); 
+  
   
   @override
-  void attached() {
-    super.attached();
-    print("attached custom-template");
+  void ready() {
+    print("custom-template is ready");
+  }
+  
+  
+  @Listener("click", id: "custom")
+  void onClickCustom(Event e) {
+    print("clicked ${customFoo.testAttr}");
+    
   }
   
 }

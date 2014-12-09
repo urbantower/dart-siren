@@ -64,3 +64,23 @@ class WebComponent {
 
 }
 
+
+/**
+ * this annotation is used for methods they're will be
+ * used like listeners for events.
+ */
+class Listener {
+  
+  /// a name of the event you want to subscribe
+  final String name;
+  
+  /// an ID of element you want to subscribe
+  final String id;
+
+  /**
+   * Constructor
+   */
+  const Listener(this.name,{ this.id: ""});    
+}
+
+

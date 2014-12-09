@@ -14,25 +14,6 @@
 part of siren;
 
 
-/**
- * basic template element
- */
-class TemplateComponent extends HtmlElement {
-  
-  /**
-   * Constructor
-   */
-  TemplateComponent.created() : super.created();
-  
-  @override
-  attached() {
-    var webComponentDescriptor = WebComponent.findAnnotationInInstance(this);    
-    Element template = templates.templateFor(webComponentDescriptor.template);
-    this.appendHtml(template.innerHtml);
-  }
-  
-}
-
 TemplateRegister _templates;
 
 /**
