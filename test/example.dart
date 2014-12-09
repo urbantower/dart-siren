@@ -30,10 +30,14 @@ class CustomTemplateElement extends TemplateComponent {
   }
   
   
-  @Listener("click", id: "custom")
+  @Listener(EventType.ON_CLICK, id: "custom")
   void onClickCustom(Event e) {
-    print("clicked ${customFoo.testAttr}");
-    
+    print("clicked ${customFoo.testAttr}");    
+  }
+  
+  @Listener(EventType.ON_KEYPRESS, id: "text-field")
+  void onClickTextField(Event e) {
+    print("key down");
   }
   
 }

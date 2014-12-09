@@ -44,3 +44,28 @@ class EventSubscriptor {
     }
   }
 }
+
+
+/**
+ * Defines the event values for EventListener 
+ * annotation
+ */
+abstract class EventType {
+  static const String ON_CLICK  = "click";
+  static const String ON_CHANGE = "change";
+  
+  // mouse events
+  static const String ON_MOUSEDOWN   = "mousedown";
+  static const String ON_MOUSEENTER  = "mouseenter";
+  static const String ON_MOUSELEAVE  = "mouseleave";
+  static const String ON_MOUSEMOVE   = "mousemove";
+  static const String ON_MOUSEOUT    = "mouseout";
+  static const String ON_MOUSEOVER   = "mouseover";
+  static const String ON_MOUSEUP     = "mouseup";
+  static const String ON_MOUSEWHEEL  = "mousewheel";
+  
+  // keyboard events
+  static const String ON_KEYDOWN   = "keydown";
+  static const String ON_KEYPRESS  = "keypress";
+  static const String ON_KEYUP     = "keyup";
+}
