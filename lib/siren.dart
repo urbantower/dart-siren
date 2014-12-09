@@ -16,6 +16,7 @@ library siren;
 import 'dart:html';
 import 'dart:mirrors';
 import 'package:logging/logging.dart';
+import 'dart:async';
 
 part 'src/annotations.dart';
 part 'src/engine.dart';

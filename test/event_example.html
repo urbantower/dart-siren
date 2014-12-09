@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <!-- 
+      You must include this polyfill because not 
+      all browsers are supporting registerElement 
+    -->    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/document-register-element/0.1.2/document-register-element.js"></script>
+    
+    <template id="formular-template">
+      <div>Name: <input id="name-field" type="text"/></div>
+      <div id="button">Click Me!</div>
+      <div id="output"></div>      
+    </template>
+    
+  </head> 
+  <body>           
+    <custom-formular/>
+    <script type="application/dart" src="event_example.dart"/></script>
+    <script src="packages/browser/dart.js"></script>
+  </body>
+</html>

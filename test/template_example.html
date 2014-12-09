@@ -7,15 +7,17 @@
       all browsers are supporting registerElement 
     -->    
     <script src="//cdnjs.cloudflare.com/ajax/libs/document-register-element/0.1.2/document-register-element.js"></script>
-    <template id="custom-template">
-        <h1>This is template</h1>
-        <custom-foo id="custom"></custom-foo>
-        <input id="text-field" type="text"/>
+    
+    <!-- template for 'bar-component' -->
+    <template id="bar-template">
+      <h1>Bar template</h1>
+      <foo-component id="foo-id"></foo-component>
     </template>
-  </head> 
-  <body>           
-    <custom-template></custom-template>    
-    <script type="application/dart" src="example.dart"></script>
+    
+  </head>
+  <body>          
+    <bar-component/>
+    <script type="application/dart" src="template_example.dart"/></script>
     <script src="packages/browser/dart.js"></script>
   </body>
 </html>

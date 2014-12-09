@@ -17,18 +17,24 @@ part of siren;
 /**
  * basic siren component
  */
-abstract class SirenComponent extends HtmlElement with DomManipulationMixin, EventSubscriberMixin {
+abstract class SirenComponent extends HtmlElement with DomManipulationMixin, EventMixin {
   
   /**
    * Constructor
    */
   SirenComponent.created() : super.created();
   
+  
+  /**
+   * do not override this method because templating 
+   * will stop working. Use 'ready' instead of this method
+   */
   @override
   attached() {
     subscribeEvents();
     ready();
   }
+  
   
   /**
    * Here you will implement your initialization 
@@ -42,16 +48,22 @@ abstract class SirenComponent extends HtmlElement with DomManipulationMixin, Eve
 /**
  * basic template component
  */
-abstract class TemplateComponent extends HtmlElement with DomManipulationMixin, EventSubscriberMixin {
+abstract class SirenTemplateComponent extends HtmlElement with DomManipulationMixin, EventMixin {
   
   /// this flag preventing to duplicated templates
   bool _templateAttached = false;
   
+  
   /**
    * Constructor
    */
-  TemplateComponent.created() : super.created();
+  SirenTemplateComponent.created() : super.created();
+
   
+  /**
+   * do not override this method because templating 
+   * will stop working. Use 'ready' instead of this method
+   */
   @override
   attached() {
     if (!_templateAttached) {
@@ -63,9 +75,15 @@ abstract class TemplateComponent extends HtmlElement with DomManipulationMixin, 
       this.appendHtml(template.innerHtml);
       _templateAttached = true;
       this.subscribeEvents();
+          
       ready();
     }
   }
+
   
-  ready();
+  /**
+   * Here you will implement your initialization 
+   * code.
+   */
+  void ready();
 }

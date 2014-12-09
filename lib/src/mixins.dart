@@ -31,17 +31,20 @@ abstract class DomManipulationMixin {
       if (element != null) {
         _elements[id] = element;
       }
-    }    
+    }
+    if (element == null) {
+      throw new StateError("Invalid ID '${id}'. Check if '${this}' contains element with this ID.");
+    }
     return element;
   }  
 }
 
 
 /**
- * this mixin adds the event subscription functionality based on 
- * annotations to your component 'SubscribeEvent' 
+ * this mixin supports 'Listener' annotations, firing the custom 
+ * events etc.  
  */
-abstract class EventSubscriberMixin {
+abstract class EventMixin {
     
   /**
    * main subscribtion method
@@ -51,6 +54,13 @@ abstract class EventSubscriberMixin {
     for (EventSubscriptor subscriptor in subsrciptors) {
       subscriptor.subscribe();
     }
+  }
+  
+  /**
+   * fire the custom event
+   */
+  void fire(String event, {bool canBubble: true, bool cancelable: true, Object detail}) {
+    (this as HtmlElement).dispatchEvent(new CustomEvent(event, detail: detail, canBubble: canBubble, cancelable: cancelable));
   }
   
   /**

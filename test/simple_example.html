@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <!-- 
+      You must include this polyfill because not 
+      all browsers are supporting registerElement 
+    -->    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/document-register-element/0.1.2/document-register-element.js"></script>
+  </head> 
+  <body>           
+    <foo-component/>
+    <script type="application/dart" src="simple_example.dart"/></script>
+    <script src="packages/browser/dart.js"></script>
+  </body>
+</html>
