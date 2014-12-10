@@ -16,7 +16,6 @@ library siren;
 import 'dart:html';
 import 'dart:mirrors';
 import 'package:logging/logging.dart';
-import 'dart:async';
 
 part 'src/annotations.dart';
 part 'src/engine.dart';
@@ -30,7 +29,12 @@ part 'src/components.dart';
  * initialize siren framework, register all annotated classes 
  * as custom elements
  */
-initSiren({Iterable<String> excludedLibraries, Iterable<String> excludedClasses}) {
+initSiren({SirenApp app, Iterable<String> excludedLibraries, Iterable<String> excludedClasses}) {
+  
+  if (app != null) {
+    app.init();
+  }
+
   _siren = new SirenEngine();  
   
   if (excludedLibraries != null) {
@@ -40,7 +44,11 @@ initSiren({Iterable<String> excludedLibraries, Iterable<String> excludedClasses}
     _siren.excludedClasses.addAll(excludedClasses);
   }
   
-  _siren.scan();  
+  _siren.scan();
+  
+  if (app != null) {
+    app.ready();
+  }
 }
 
 SirenEngine _siren; 

@@ -15,6 +15,31 @@ part of siren;
 
 
 /**
+ * main class representing application and root is acting
+ * as <body>.
+ */
+abstract class SirenApp extends DomManipulationMixin {
+
+  @override
+  HtmlElement get root => document.body;  
+
+  /**
+   * here you will implement your application
+   * initialization code. This method is called
+   * before the siren register components
+   */
+  void init(){    
+  }
+
+  /**
+   * here you will implement your code
+   * after siren is ready.
+   */
+  void ready();
+}
+
+
+/**
  * basic siren component
  */
 abstract class SirenComponent extends HtmlElement with DomManipulationMixin, EventMixin {
@@ -24,6 +49,8 @@ abstract class SirenComponent extends HtmlElement with DomManipulationMixin, Eve
    */
   SirenComponent.created() : super.created();
   
+  @override
+  HtmlElement get root => this;  
   
   /**
    * do not override this method because templating 
@@ -53,6 +80,8 @@ abstract class SirenTemplateComponent extends HtmlElement with DomManipulationMi
   /// this flag preventing to duplicated templates
   bool _templateAttached = false;
   
+  @override
+  HtmlElement get root => this;  
   
   /**
    * Constructor
@@ -71,7 +100,8 @@ abstract class SirenTemplateComponent extends HtmlElement with DomManipulationMi
       Element template = templates.templateFor(webComponentDescriptor.template);
       if (template == null) {
         throw new StateError("no template '${webComponentDescriptor.template}' defined in HTML");
-      }      
+      }
+      this.children.clear();
       this.appendHtml(template.innerHtml);
       _templateAttached = true;
       this.subscribeEvents();

@@ -20,6 +20,8 @@ part of siren;
 abstract class DomManipulationMixin {
   
   Map<String, HtmlElement> _elements = new Map();
+
+  HtmlElement get root;
   
   /**
    * get the element by ID.
@@ -27,7 +29,7 @@ abstract class DomManipulationMixin {
   HtmlElement $(String id) {    
     HtmlElement element = _elements[id];
     if (element == null) { 
-      element =  (this as HtmlElement).querySelector("#${id}");
+      element =  root.querySelector("#${id}");
       if (element != null) {
         _elements[id] = element;
       }
