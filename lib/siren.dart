@@ -23,7 +23,10 @@ part 'src/mixins.dart';
 part 'src/events.dart';
 part 'src/template.dart';
 part 'src/components.dart';
+part 'src/validator.dart';
 
+/// global siren node validator
+var sirenNodeValidator = new AllowAllNodeValidator();
 
 /**
  * initialize siren framework, register all annotated classes 

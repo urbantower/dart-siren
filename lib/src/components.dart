@@ -102,7 +102,7 @@ abstract class SirenTemplateComponent extends HtmlElement with DomManipulationMi
         throw new StateError("no template '${webComponentDescriptor.template}' defined in HTML");
       }
       this.children.clear();
-      this.appendHtml(template.innerHtml);
+      this.appendHtml(template.innerHtml, validator: sirenNodeValidator);
       _templateAttached = true;
       this.subscribeEvents();
           
